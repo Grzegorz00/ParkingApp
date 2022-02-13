@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ffi/ffi.git
+  revision: 447845cb3030194c79700c86fb388a12e6f81386
+  submodules: true
+  specs:
+    ffi (1.15.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -180,8 +187,6 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
-    robocop (0.1.1)
-      rack
     rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
@@ -249,12 +254,13 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  ffi!
   importmap-rails
   jbuilder
   overcommit (~> 0.58.0)
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.2)
-  robocop (~> 0.1.1)
+  rubocop (~> 1.25, >= 1.25.1)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
