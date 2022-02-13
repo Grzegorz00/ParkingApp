@@ -43,7 +43,8 @@ gem 'tzinfo-data', '~> 1.2021', '>= 1.2021.5'
 gem "bootsnap", require: false
 
 gem 'overcommit', '~> 0.58.0'
-gem 'robocop', '~> 0.1.1'
+gem 'rubocop', '~> 1.25', '>= 1.25.1'
+gem "standard", group: [:development, :test]
 
 # Use Sass to process CSS
 # gem "sassc-rails"
