@@ -48,6 +48,7 @@ gem 'overcommit', '~> 0.58.0'
 gem 'rubocop', '~> 1.25', '>= 1.25.1'
 gem 'standard', group: %i[development test]
 gem 'ffi', github: 'ffi/ffi', submodules: true
+gem 'bootstrap', '~> 5.1.3'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
