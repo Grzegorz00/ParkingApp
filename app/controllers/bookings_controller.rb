@@ -1,3 +1,6 @@
+require 'date'
+require 'json'
+
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy ]
 
@@ -22,16 +25,26 @@ class BookingsController < ApplicationController
   # POST /bookings or /bookings.json
   def create
     @booking = Booking.new(booking_params)
-
-    respond_to do |format|
-      if @booking.save
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
-        format.json { render :show, status: :created, location: @booking }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+    @bookings = Booking.all
+    todays_booking = @bookings.where(date: Date.today)
+    
+    if todays_booking.empty? || todays_booking.last.release == true
+      respond_to do |format|
+        if @booking.save
+          format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
+          format.json { render :show, status: :created, location: @booking }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @booking.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    else
+      respond_to do |format|
+        format.html { redirect_to bookings_url, notice: "Booking is already taken." }
+        format.json { head :no_content }
+      end
+    end 
+    
   end
 
   # PATCH/PUT /bookings/1 or /bookings/1.json
