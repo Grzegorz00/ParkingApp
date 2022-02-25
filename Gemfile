@@ -49,6 +49,7 @@ gem 'rubocop', '~> 1.25', '>= 1.25.1'
 gem 'standard', group: %i[development test]
 gem 'ffi', github: 'ffi/ffi', submodules: true
 gem 'bootstrap', '~> 5.1.3'
+gem 'omniauth-slack', '~> 2.3'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
