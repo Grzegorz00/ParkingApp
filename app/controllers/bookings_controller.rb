@@ -89,10 +89,6 @@ class BookingsController < ApplicationController
       @bookings = Booking.all
       searched_booking = @bookings.where(date: booking_params[:date])
 
-      if searched_booking.empty? || searched_booking.last.release == true
-        return true
-      end
-
-      false
+      (searched_booking.empty? || searched_booking.last.release == true) ? true : false
     end
 end
