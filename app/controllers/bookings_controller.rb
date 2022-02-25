@@ -23,12 +23,8 @@ class BookingsController < ApplicationController
   end
 
   # POST /bookings or /bookings.json
-  def create
-    @booking = Booking.new(booking_params)
-    @bookings = Booking.all
-    searched_booking = @bookings.where(date: booking_params[:date])
-    
-    if searched_booking.empty? || searched_booking.last.release == true
+  def create    
+    if date_available?(booking_params)
       respond_to do |format|
         if @booking.save
           format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
@@ -49,13 +45,20 @@ class BookingsController < ApplicationController
 
   # PATCH/PUT /bookings/1 or /bookings/1.json
   def update
-    respond_to do |format|
-      if @booking.update(booking_params)
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully updated." }
-        format.json { render :show, status: :ok, location: @booking }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+    if date_available?(booking_params)
+      respond_to do |format|
+        if @booking.update(booking_params)
+          format.html { redirect_to booking_url(@booking), notice: "Booking was successfully updated." }
+          format.json { render :show, status: :ok, location: @booking }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @booking.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to bookings_url, notice: "Booking is already taken." }
+        format.json { head :no_content }
       end
     end
   end
@@ -79,5 +82,17 @@ class BookingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def booking_params
       params.require(:booking).permit(:date, :release, :employee_id)
+    end
+
+    def date_available? (booking_params)
+      @booking = Booking.new(booking_params)
+      @bookings = Booking.all
+      searched_booking = @bookings.where(date: booking_params[:date])
+
+      if searched_booking.empty? || searched_booking.last.release == true
+        return true
+      end
+
+      false
     end
 end
