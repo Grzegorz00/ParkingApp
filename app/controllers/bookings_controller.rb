@@ -26,9 +26,9 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @bookings = Booking.all
-    todays_booking = @bookings.where(date: Date.today)
+    searched_booking = @bookings.where(date: booking_params[:date])
     
-    if todays_booking.empty? || todays_booking.last.release == true
+    if searched_booking.empty? || searched_booking.last.release == true
       respond_to do |format|
         if @booking.save
           format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
