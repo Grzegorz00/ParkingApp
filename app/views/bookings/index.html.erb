@@ -1,4 +1,10 @@
 <%= link_to "Sign in with SLACK", "/auth/slack" %>
+
+<% if @current_employee %>
+<h1>Hi, <%= @current_employee.name%></h1>
+<% end %>
+
+
 <p style="color: green"><%= notice %></p>
 
 <h1>Bookings History</h1>
@@ -7,16 +13,14 @@
   <table class="table">
     <tr>
       <th scope="col">Date</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
+      <th scope="col">Name</th>
       <th scope="col">Release</th>
       <th scope="col">Actions</th>
     </tr>
     <% @bookings.each do |booking| %>
       <tr>
         <td><%= booking.date %></td>
-        <td><%= booking.employee.first_name %></td>
-        <td><%= booking.employee.last_name %></td>
+        <td><%= booking.employee.name %></td>
         <td><%= booking.release %></td>
         <td>
           <%= link_to "Show this booking", booking %>
