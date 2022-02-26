@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_16_105532) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_000811) do
   create_table "bookings", force: :cascade do |t|
     t.date "date"
     t.boolean "release"
@@ -21,8 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_16_105532) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "name"
+    t.string "member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
